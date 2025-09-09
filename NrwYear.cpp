@@ -4,46 +4,46 @@
 #include <iomanip>
 
 int main() {
-	using namespace std::chrono;
+    using namespace std::chrono;
 
-	// Получаем текущее время
-	system_clock::time_point now = system_clock::now();
-	std::time_t now_c = system_clock::to_time_t(now);
-	std::tm now_tm = *std::localtime(&now_c);
+    // РџРѕР»СѓС‡Р°РµРј С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ
+    system_clock::time_point now = system_clock::now();
+    std::time_t now_c = system_clock::to_time_t(now);
+    std::tm now_tm = *std::localtime(&now_c);
 
-	// Определяем следующий Новый год
-	std::tm new_year_tm = {};
-	new_year_tm.tm_year = now_tm.tm_year + 1;   // следующий год
-	new_year_tm.tm_mon = 0;                      // январь
-	new_year_tm.tm_mday = 1;                     // 1-е число
-	new_year_tm.tm_hour = 0;
-	new_year_tm.tm_min = 0;
-	new_year_tm.tm_sec = 0;
+    // РћРїСЂРµРґРµР»СЏРµРј СЃР»РµРґСѓСЋС‰РёР№ РќРѕРІС‹Р№ РіРѕРґ
+    std::tm new_year_tm = {};
+    new_year_tm.tm_year = now_tm.tm_year + 1;   // СЃР»РµРґСѓСЋС‰РёР№ РіРѕРґ
+    new_year_tm.tm_mon = 0;                      // СЏРЅРІР°СЂСЊ
+    new_year_tm.tm_mday = 1;                     // 1-Рµ С‡РёСЃР»Рѕ
+    new_year_tm.tm_hour = 0;
+    new_year_tm.tm_min = 0;
+    new_year_tm.tm_sec = 0;
 
-	std::time_t new_year_time = std::mktime(&new_year_tm);
-	auto new_year_tp = system_clock::from_time_t(new_year_time);
+    std::time_t new_year_time = std::mktime(&new_year_tm);
+    auto new_year_tp = system_clock::from_time_t(new_year_time);
 
-	// Вычисляем разницу
-	auto diff = duration_cast<seconds>(new_year_tp - now);
-	if (diff.count() < 0) {
-		std::cout << "Новый год уже наступил!" << std::endl;
-		return 0;
-	}
+    // Р’С‹С‡РёСЃР»СЏРµРј СЂР°Р·РЅРёС†Сѓ
+    auto diff = duration_cast<seconds>(new_year_tp - now);
+    if (diff.count() < 0) {
+        std::cout << "РќРѕРІС‹Р№ РіРѕРґ СѓР¶Рµ РЅР°СЃС‚СѓРїРёР»!" << std::endl;
+        return 0;
+    }
 
-	int total_seconds = static_cast<int>(diff.count());
+    int total_seconds = static_cast<int>(diff.count());
 
-	int days = total_seconds / (24 * 3600);
-	total_seconds %= 24 * 3600;
-	int hours = total_seconds / 3600;
-	total_seconds %= 3600;
-	int minutes = total_seconds / 60;
-	int seconds = total_seconds % 60;
+    int days = total_seconds / (24 * 3600);
+    total_seconds %= 24 * 3600;
+    int hours = total_seconds / 3600;
+    total_seconds %= 3600;
+    int minutes = total_seconds / 60;
+    int seconds = total_seconds % 60;
 
-	std::cout << "До Нового года осталось: "
-		<< days << " дней "
-		<< hours << " часов "
-		<< minutes << " минут "
-		<< seconds << " секунд.\n";
+    std::cout << "Р”Рѕ РќРѕРІРѕРіРѕ РіРѕРґР° РѕСЃС‚Р°Р»РѕСЃСЊ: "
+              << days << " РґРЅРµР№ "
+              << hours << " С‡Р°СЃРѕРІ "
+              << minutes << " РјРёРЅСѓС‚ "
+              << seconds << " СЃРµРєСѓРЅРґ.\n";
 
-	return 0;
+    return 0;
 }
